@@ -1,0 +1,6 @@
+credentials.json
+client_secrets.json
+__pycache__
+Subject*
+.DS_Store
+*.DS_Store

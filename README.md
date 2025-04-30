@@ -136,3 +136,10 @@ The available programs were used in the following manner and order:
 **If you use our [data set](https://sites.google.com/up.edu.mx/har-up/p%C3%A1gina-principal), please cite as follows:**
 
 *Lourdes Martínez-Villaseñor, Hiram Ponce, Jorge Brieva, Ernesto Moya-Albor, José Núñez-Martínez, Carlos Peñafort-Asturiano, “UP-Fall Detection Dataset: A Multimodal Approach”, Sensors 19(9), 1988: 2019, doi:10.3390/s19091988.*
+
+
+```
+zsh -c "source $(conda info --base)/etc/profile.d/conda.sh && conda activate windsurf && python Downloader_pydrive.py"
+```
+
+`DatabaseDownload/client_secrets.json` is required

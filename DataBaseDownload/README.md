@@ -284,3 +284,9 @@ By default, all csv files are downloaded (zipped OF files are avoided on purpose
                                             \Subject#Activity$Trial%Camera2_OF.zip
                                 
    - - You can choose which camera's data to download by modifying the **n_cam** array variable. See the example section in the **Downloading the Data Set** section for more information.
+
+```
+zsh -c "source $(conda info --base)/etc/profile.d/conda.sh && conda activate windsurf && python Downloader_pydrive.py"
+```
+
+`DatabaseDownload/client_secrets.json` is required

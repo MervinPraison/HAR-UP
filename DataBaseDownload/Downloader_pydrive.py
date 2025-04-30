@@ -22,11 +22,12 @@ Functions
 
 #A function to connect with Google Drive
 def connect():
+    from oauth2client.service_account import ServiceAccountCredentials
+    
     gauth = GoogleAuth()
-    #Creates local webserver and auto handles authentication.
-    gauth.LocalWebserverAuth()
-    #Reads stored credentials (if any) to avoid opening the browser
-    gauth.LoadCredentialsFile('credentials.json')
+    # Use service account directly
+    scope = ["https://www.googleapis.com/auth/drive"]
+    gauth.credentials = ServiceAccountCredentials.from_json_keyfile_name('client_secrets.json', scope)
     drive = GoogleDrive(gauth)  
     return gauth, drive
 
@@ -97,8 +98,8 @@ def featureDownload(gral = '',
                     gauth, drive, v_flg = download(path,f_name,a_id,gauth, drive)
                 #Camera OF zip files
                 if Complete_OF:
-                    for l in range(n_cam[0],n_cam[1]+1):
-                        f_name = sub+act+trl+'Camera'+str(l)+'_OF.zip'
+                    for cam_num in range(n_cam[0],n_cam[1]+1):
+                        f_name = sub+act+trl+'Camera'+str(cam_num)+'_OF.zip'
                         gauth, drive, v_flg = refresh_gauth(gauth,drive)
                         if v_flg:
                             break
@@ -173,8 +174,8 @@ def dataBaseDownload(gral = '',
                     break
                 gauth, drive, v_flg = download(path,f_name,t_id,gauth, drive)
                 if(cameras):
-                    for l in range(n_cam[0],n_cam[1] + 1):
-                        cam = 'Camera' + str(l)
+                    for cam_num in range(n_cam[0],n_cam[1] + 1):
+                        cam = 'Camera' + str(cam_num)
                         f_name = sub+act+trl+cam+'.zip'
                         gauth, drive, v_flg = download(path,f_name,t_id,gauth, drive)
     if v_flg:
@@ -188,8 +189,10 @@ End of functions
 
 def main():
     parent_dir = ''
-    dataBaseDownload(parent_dir)
-    featureDownload(parent_dir)
+    # Only download camera zip files (videos), not CSV files
+    dataBaseDownload(parent_dir, csv_files=False)
+    # Comment out feature download to focus only on videos
+    # featureDownload(parent_dir)
     
 if __name__=="__main__":
     main()
